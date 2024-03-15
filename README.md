@@ -1,0 +1,1 @@
+CryptoAnalyzer - проект первого модуля JavaRush университета. [Задание](https://javarush.com/quests/lectures/jru.module1.lecture51)
