@@ -28,3 +28,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/src/ru/javarush/martyshin/cryptoanalyzer/resources/encoded/
+/src/ru/javarush/martyshin/cryptoanalyzer/resources/decoded/
+/src/ru/javarush/martyshin/cryptoanalyzer/resources/brute_forced/
+/.idea/
+/.idea/
