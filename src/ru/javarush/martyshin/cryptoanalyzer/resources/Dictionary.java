@@ -17,5 +17,4 @@ public class Dictionary {
             "were", "the", "who", "where", "when", "why", "what", "which", "that", "then", "than", "and", "but",
             "because", "between", "as", "his", "her", "for", "on", "at", "this", "from", "to", "by",
             "or", "can"));
-
 }

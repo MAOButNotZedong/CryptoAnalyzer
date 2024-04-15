@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
 
 public class CaesarsBruteForceAction {
     private final int BUFFER_SIZE = 8192;
@@ -37,7 +38,7 @@ public class CaesarsBruteForceAction {
             CaesarsEncoderAction cea = new CaesarsEncoderAction();
             for (int key = firstKey; key < lastKey; key++) {
                 String str = new String(cea.encode(buffer, validLength, key));
-                int num = countMatches(key, str);
+                int num = countMatches(str);
                 if (num > numOfMatches) {
                     bestKey = key;
                     numOfMatches = num;
@@ -53,17 +54,16 @@ public class CaesarsBruteForceAction {
         }
     }
 
-    private int countMatches(int key, String str) {
+    private int countMatches(String str) {
         int num = 0;
-        if (key == bestKey) {
-            num = numOfMatches;
-        }
-        for (String word : Dictionary.RU_WORDS) {
-            if (str.contains(word)) {
-                num++;
-            }
-        }
-        for (String word : Dictionary.EN_WORDS) {
+        num += countMatchesWithDictionary(Dictionary.RU_WORDS, str);
+        num += countMatchesWithDictionary(Dictionary.EN_WORDS, str);
+        return num;
+    }
+
+    private int countMatchesWithDictionary(HashSet<String> set, String str) {
+        int num = 0;
+        for (String word : set) {
             if (str.contains(word)) {
                 num++;
             }
