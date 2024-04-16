@@ -4,7 +4,6 @@ import ru.javarush.martyshin.cryptoanalyzer.resources.Symbols;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 public class CaesarsEncoderAction {
     private static final int BUFFER_SIZE = 8192;

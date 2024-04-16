@@ -3,14 +3,9 @@ package ru.javarush.martyshin.cryptoanalyzer;
 import ru.javarush.martyshin.cryptoanalyzer.resources.Dictionary;
 import ru.javarush.martyshin.cryptoanalyzer.resources.Symbols;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.List;
 
 public class CaesarsBruteForceAction {
     private final int BUFFER_SIZE = 8192;
