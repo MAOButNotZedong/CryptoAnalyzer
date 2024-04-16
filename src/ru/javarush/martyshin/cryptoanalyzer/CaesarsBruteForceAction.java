@@ -7,8 +7,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.List;
 
 public class CaesarsBruteForceAction {
     private final int BUFFER_SIZE = 8192;
@@ -19,24 +21,18 @@ public class CaesarsBruteForceAction {
 
     public void run(Path inputFilePath) {
         Path outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager.BRUTE_FORCED);
-        try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath.toFile()));
-             BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilePath.toFile()));
-        ) {
-            char[] buffer = new char[BUFFER_SIZE];
-            int validLength = br.read(buffer);
+        try {
+            String readString = Files.readString(inputFilePath);
             CaesarsEncoderAction cea = new CaesarsEncoderAction();
-            for (int key = firstKey; key < lastKey; key++) {
-                String decodedString = new String(cea.encode(buffer, validLength, key));
+            for (int encodeDecodeKey = firstKey; encodeDecodeKey < lastKey; encodeDecodeKey++) {
+                String decodedString = cea.encodeDecode(readString, encodeDecodeKey);
                 int num = countMatches(decodedString);
                 if (num > numOfMatches) {
-                    bestKey = key;
+                    bestKey = encodeDecodeKey;
                     numOfMatches = num;
                 }
             }
-            bw.write(cea.encode(buffer, validLength, bestKey));
-            while (br.ready()) {
-                bw.write(cea.encode(buffer, validLength, bestKey));
-            }
+            Files.writeString(outputFilePath, cea.encodeDecode(readString, bestKey));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
