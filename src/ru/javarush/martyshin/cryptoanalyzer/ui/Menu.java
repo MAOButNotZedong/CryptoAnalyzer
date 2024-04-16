@@ -102,6 +102,9 @@ public class Menu {
             path = path.resolve(ENCODED);
         }
         files = FileManager.getFilesFromDirectory(path);
+        if (files.isEmpty()) {
+            throw new RuntimeException(FILES_NOT_FOUND);
+        }
 
         message.append(ENCODE_MENU_ITEM);
         String forSometh = switch (mainMenuAction) {
@@ -114,9 +117,6 @@ public class Menu {
         message.append(RETURN_PREV + "\n");
         for (int i = 0; i < files.size(); i++) {
             message.append(String.format("%d. %s\n", i + 2, files.get(i).getFileName().toString()));
-        }
-        if (files.isEmpty()) {
-            throw new RuntimeException(FILES_NOT_FOUND);
         }
         if (isBruteForceAction()) {
             message.append(CHOOSE_MENU_ITEM_NUM);

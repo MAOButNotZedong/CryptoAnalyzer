@@ -3,29 +3,18 @@ package ru.javarush.martyshin.cryptoanalyzer;
 import ru.javarush.martyshin.cryptoanalyzer.resources.Symbols;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class CaesarsEncoderAction{
     private static final int BUFFER_SIZE = 8192;
     public void run(Path inputFilePath, int encodeDecodeKey, boolean isEncoding) {
-        Path fileName = inputFilePath.getFileName();
         Path outputFilePath;
-        Path outputDirectoryPath;
         if (isEncoding) {
-            outputDirectoryPath = inputFilePath.getParent().getParent().resolve(FileManager.ENCODED);
+            outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager.ENCODED);
         } else {
             encodeDecodeKey *= -1;
-            outputDirectoryPath = inputFilePath.getParent().getParent().resolve(FileManager.DECODED);
+            outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager. DECODED);
         }
-        try {
-            if (!Files.exists(outputDirectoryPath)) {
-                Files.createDirectory(outputDirectoryPath);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        outputFilePath = outputDirectoryPath.resolve(fileName);
         try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath.toFile()));
              BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilePath.toFile()));
         ) {

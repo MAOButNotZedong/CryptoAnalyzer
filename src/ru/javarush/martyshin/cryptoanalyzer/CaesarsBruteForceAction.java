@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 
@@ -19,17 +18,7 @@ public class CaesarsBruteForceAction {
     private int lastKey = Symbols.ALL_SYMBOLS.length - 1;
 
     public void run(Path inputFilePath) {
-        Path fileName = inputFilePath.getFileName();
-        Path outputFilePath;
-        Path outputDictionaryPath = inputFilePath.getParent().getParent().resolve(FileManager.BRUTE_FORCED);
-        try {
-            if (!Files.exists(outputDictionaryPath)) {
-                Files.createDirectory(outputDictionaryPath);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        outputFilePath = outputDictionaryPath.resolve(fileName);
+        Path outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager.BRUTE_FORCED);
         try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath.toFile()));
              BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilePath.toFile()));
         ) {
