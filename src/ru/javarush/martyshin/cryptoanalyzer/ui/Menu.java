@@ -106,11 +106,21 @@ public class Menu {
             throw new RuntimeException(FILES_NOT_FOUND);
         }
 
-        message.append(ENCODE_MENU_ITEM);
-        String forSometh = switch (mainMenuAction) {
-            case 1 -> FOR_ENCODE;
-            case 2 -> FOR_DECODE;
-            case 3 -> FOR_BRUTE_FORCE;
+
+        String forSometh;
+        switch (mainMenuAction) {
+            case 1 -> {
+                forSometh = FOR_ENCODE;
+                message.append(ENCODE_MENU_ITEM);
+            }
+            case 2 -> {
+                forSometh = FOR_DECODE;
+                message.append(DECODE_MENU_ITEM);
+            }
+            case 3 -> {
+                forSometh = FOR_BRUTE_FORCE;
+                message.append(BRUTE_FORCE_MENU_ITEM);
+            }
             default -> throw new RuntimeException(NO_ACTION);
         };
         message.append(String.format(" " + CHOOSE_FILE_FOR + "\n", forSometh));
