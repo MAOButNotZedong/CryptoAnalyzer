@@ -18,27 +18,27 @@ public class CaesarsBruteForceAction {
     private int firstKey = -1 * Symbols.ALL_SYMBOLS.length;
     private int lastKey = Symbols.ALL_SYMBOLS.length - 1;
 
-    public void start(Path path) {
-        Path fileName = path.getFileName();
-        Path outputFile;
-        Path outputPath = path.getParent().getParent().resolve(FileManager.BRUTE_FORCED);
+    public void run(Path inputFilePath) {
+        Path fileName = inputFilePath.getFileName();
+        Path outputFilePath;
+        Path outputDictionaryPath = inputFilePath.getParent().getParent().resolve(FileManager.BRUTE_FORCED);
         try {
-            if (!Files.exists(outputPath)) {
-                Files.createDirectory(outputPath);
+            if (!Files.exists(outputDictionaryPath)) {
+                Files.createDirectory(outputDictionaryPath);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        outputFile = outputPath.resolve(fileName);
-        try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()));
-             BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile.toFile()));
+        outputFilePath = outputDictionaryPath.resolve(fileName);
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath.toFile()));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilePath.toFile()));
         ) {
             char[] buffer = new char[BUFFER_SIZE];
             int validLength = br.read(buffer);
             CaesarsEncoderAction cea = new CaesarsEncoderAction();
             for (int key = firstKey; key < lastKey; key++) {
-                String str = new String(cea.encode(buffer, validLength, key));
-                int num = countMatches(str);
+                String decodedString = new String(cea.encode(buffer, validLength, key));
+                int num = countMatches(decodedString);
                 if (num > numOfMatches) {
                     bestKey = key;
                     numOfMatches = num;
@@ -48,7 +48,6 @@ public class CaesarsBruteForceAction {
             while (br.ready()) {
                 bw.write(cea.encode(buffer, validLength, bestKey));
             }
-            bw.flush();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

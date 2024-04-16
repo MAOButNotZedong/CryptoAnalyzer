@@ -13,10 +13,8 @@ import static ru.javarush.martyshin.cryptoanalyzer.resources.StringValues.*;
 
 
 public class Menu {
-
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Path> files;
-
     private static int mainMenuAction;
 
     public static void start() {
@@ -31,6 +29,7 @@ public class Menu {
                 } else {
                     runCaesarsEncoderActionOrReturn();
                 }
+                showMessage(ACTION_EXECUTED_OK);
             } else if (mainMenuAction == 4) {
                 break menu;
             }
@@ -43,6 +42,7 @@ public class Menu {
     private static boolean isEncoderAction() {
         return mainMenuAction == 1;
     }
+
     private static boolean isBruteForceAction () {
         return mainMenuAction == 3;
     }
@@ -73,7 +73,7 @@ public class Menu {
         }
         if (menuNum == 1) {
         } else if (menuNum > 1 && menuNum < files.size() + 2) {
-           new CaesarsEncoderAction().start(files.get(menuNum - 2), key, isEncoderAction());
+           new CaesarsEncoderAction().run(files.get(menuNum - 2), key, isEncoderAction());
         } else {
             throw new IllegalArgumentException(String.format(MENU_NUM_NOT_EXIST, menuNum));
         }
@@ -83,7 +83,7 @@ public class Menu {
         int menuNum = Integer.parseInt(scanner.nextLine());
         if (menuNum == 1) {
         } else if (menuNum > 1 && menuNum < files.size() + 2) {
-            new CaesarsBruteForceAction().start(files.get(menuNum - 2));
+            new CaesarsBruteForceAction().run(files.get(menuNum - 2));
         } else {
             throw new IllegalArgumentException(String.format(MENU_NUM_NOT_EXIST, menuNum));
         }
