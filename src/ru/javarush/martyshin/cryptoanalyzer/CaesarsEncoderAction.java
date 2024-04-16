@@ -13,7 +13,7 @@ public class CaesarsEncoderAction{
             outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager.ENCODED);
         } else {
             encodeDecodeKey *= -1;
-            outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager. DECODED);
+            outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager.DECODED);
         }
         try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath.toFile()));
              BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilePath.toFile()));
