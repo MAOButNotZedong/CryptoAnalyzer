@@ -11,10 +11,10 @@ public class CaesarsBruteForceAction {
     private final int BUFFER_SIZE = 8192;
     private int bestKey = 0;
     private int numOfMatches = 0;
-    private int firstKey = -1 * Symbols.ALL_SYMBOLS.length;
+    private int firstKey = -1 * Symbols.ALL_SYMBOLS.length + 1;
     private int lastKey = Symbols.ALL_SYMBOLS.length - 1;
 
-    public void run(Path inputFilePath) {
+    public int run(Path inputFilePath) {
         Path outputFilePath = FileManager.getResolvedOutputFilePath(inputFilePath, FileManager.BRUTE_FORCED);
         try {
             String readString = Files.readString(inputFilePath);
@@ -28,6 +28,7 @@ public class CaesarsBruteForceAction {
                 }
             }
             Files.writeString(outputFilePath, cea.encodeDecode(readString, bestKey));
+            return -1 * bestKey;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

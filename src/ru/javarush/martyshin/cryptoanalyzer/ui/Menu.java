@@ -83,7 +83,8 @@ public class Menu {
         int menuNum = Integer.parseInt(scanner.nextLine());
         if (menuNum == 1) {
         } else if (menuNum > 1 && menuNum < files.size() + 2) {
-            new CaesarsBruteForceAction().run(files.get(menuNum - 2));
+            int bruteForcedKey = new CaesarsBruteForceAction().run(files.get(menuNum - 2));
+            showMessage(THE_BEST_KEY_IS + bruteForcedKey);
         } else {
             throw new IllegalArgumentException(String.format(MENU_NUM_NOT_EXIST, menuNum));
         }
@@ -105,7 +106,6 @@ public class Menu {
         if (files.isEmpty()) {
             throw new RuntimeException(FILES_NOT_FOUND);
         }
-
 
         String forSometh;
         switch (mainMenuAction) {
